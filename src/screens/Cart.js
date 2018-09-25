@@ -27,7 +27,10 @@ class Cart extends Component {
         return (
             <View style={styles.footerContainer}>
                 <Text style={styles.totalPriceText}>Total: {'\u20B9'}{ toRupee(this._totalPrice()) }</Text>
-                <TouchableOpacity style={styles.btn}>
+                <TouchableOpacity 
+                    style={styles.btn}
+                    onPress={() => this.props.navigation.navigate("Order")}
+                >
                     <Text style={styles.btnText}>place order</Text>
                 </TouchableOpacity>
             </View>

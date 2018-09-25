@@ -1,4 +1,4 @@
-import { ADD_ITEM, DELETE_ITEM, INCREMENT_ITEM, DECREMENT_ITEM } from '../actions/cart';
+import { ADD_ITEM, DELETE_ITEM, INCREMENT_ITEM, DECREMENT_ITEM, SET_CART } from '../actions/cart';
 
 const initialState = {
     items: []
@@ -42,6 +42,11 @@ export default (state=initialState, action) => {
                     }
                     return item;
                 })
+            };
+        case SET_CART:
+            return {
+                ...state,
+                items: action.cart.products
             };
         default:
             return state;

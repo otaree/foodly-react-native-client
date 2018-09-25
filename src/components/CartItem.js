@@ -15,16 +15,28 @@ class CartItem extends Component {
         dispatch: PropTypes.func.isRequired
     }
 
-    _handleIncrement = () => {
-        this.props.dispatch(incrementItem(this.props.item.product._id))
+    _handleIncrement = async () => {
+        try {
+            await this.props.dispatch(incrementItem(this.props.item.product._id, this.props.token))            
+        } catch (error) {
+            
+        }
     }
 
-    _handleDecrement = () => {
-        this.props.dispatch(decrementItem(this.props.item));
+    _handleDecrement = async () => {
+        try {
+        await this.props.dispatch(decrementItem(this.props.item, this.props.token)); 
+        } catch (error) {
+            
+        }
     }
 
-    _handleDelete = () => {
-        this.props.dispatch(deleteItem(this.props.item.product._id))
+    _handleDelete = async () => {
+        try {
+        await this.props.dispatch(deleteItem(this.props.item, this.props.token)) 
+        } catch (error) {
+            
+        }
     }
 
     _calculateTotal = (rate, qty) => {
@@ -133,8 +145,14 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0.7
     }
 
-})
+});
+
+const mapStateToProps = (state) => {
+    return {
+        token: state.user.token
+    }
+}
 
 
 
-export default connect()(CartItem);
+export default connect(mapStateToProps)(CartItem);

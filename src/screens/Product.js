@@ -37,7 +37,7 @@ class Product extends Component {
     }
 
     _addToCart = () => {
-        this.props.dispatch(addItem(this.state.product));
+        this.props.dispatch(addItem(this.state.product, this.props.token));
     }
 
     _renderButton = () => {
@@ -138,7 +138,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        items: state.cart.items
+        items: state.cart.items,
+        token: state.user.token
     };
 }
 
