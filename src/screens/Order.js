@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+// import RazorpayCheckout from 'react-native-razorpay';
 
 import AddressForm from '../components/AddressForm';
 import { toRupee } from '../services/conversion';
@@ -44,6 +45,30 @@ class Order extends Component {
         }
     }
 
+    _handleOrderPress = () => {
+        // var options = {
+        //     description: 'Credits towards consultation',
+        //     image: 'https://i.imgur.com/3g7nmJC.png',
+        //     currency: 'INR',
+        //     key: 'rzp_test_1DP5mmOlF5G5ag',
+        //     amount: '5000',
+        //     name: 'foo',
+        //     prefill: {
+        //       email: 'void@razorpay.com',
+        //       contact: '9191919191',
+        //       name: 'Razorpay Software'
+        //     },
+        //     theme: {color: '#F37254'}
+        //   }
+        //   RazorpayCheckout.open(options).then((data) => {
+        //     // handle success
+        //     Alert.alert(`Success: ${data.razorpay_payment_id}`);
+        //   }).catch((error) => {
+        //     // handle failure
+        //     Alert.alert(`Error: ${error.code} | ${error.description}`);
+        //   });
+    }
+
     _calculateTotal = () => {
         return this.props.items.reduce((acc, curr) => acc + (curr.product.price * curr.qty), 0)
     }
@@ -77,6 +102,9 @@ class Order extends Component {
                                 </TouchableOpacity>
                             </View>
                             <Text style={styles.totalPrice}>Total price: {'\u20B9'}{ toRupee(this._calculateTotal()) }</Text>
+                            <TouchableOpacity style={styles.orderBtn} onSubmit={this._handleOrderPress}>
+                                <Text style={styles.orderBtnText}>continue</Text>
+                            </TouchableOpacity>
                         </View>
                     )
 
@@ -128,6 +156,19 @@ const styles = StyleSheet.create({
         textAlign: 'right',
         fontWeight: 'bold',
         marginVertical: 10
+    },
+    orderBtn: {
+        borderTopWidth: 0.8,
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+        borderRadius: 5,
+        backgroundColor: '#8c67ef'
+    },
+    orderBtnText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: 'white',
+        textAlign: 'center'
     }
 });
 
